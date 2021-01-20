@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+
+  backend:
+    build:
+      context: backend
+
+  envoy:
+    command: /usr/local/bin/envoy -c /etc/envoy.yaml --service-cluster proxy --bootstrap-version 2
+    image: envoyproxy/envoy-alpine:v1.17.0
+    volumes:
+      - ./envoy/envoy.yaml:/etc/envoy.yaml:ro
+    ports:
+      - "8010:8010"
+
+  extauth:
+    build:
+      context: extauth
+
+  redis:
+    image: redis:6.0.10-alpine3.12
+
+  ratelimit:
+    command: /bin/ratelimit
+    image: envoyproxy/ratelimit:master
+    depends_on:
+      - redis
+    volumes:
+      - ./ratelimit/config.yaml:/data/ratelimit/config/config.yaml:ro
+    environment:
+      - USE_STATSD=false
+      - REDIS_SOCKET_TYPE=tcp
+      - REDIS_URL=redis:6379
+      - RUNTIME_ROOT=/data
+      - RUNTIME_SUBDIRECTORY=ratelimit
