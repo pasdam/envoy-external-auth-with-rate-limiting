@@ -12,6 +12,9 @@ status:
 virtualHost:
   domains:
   - '*'
+  options:
+    extauth:
+      customAuth: {}
   routes:
   - matchers:
     - prefix: /

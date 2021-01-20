@@ -40,3 +40,7 @@ services:
     ports:
     - "9977:9977"
     restart: always
+
+  extauth:
+    build:
+      context: extauth
