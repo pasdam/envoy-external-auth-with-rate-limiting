@@ -18,6 +18,12 @@ virtualHost:
   routes:
   - matchers:
     - prefix: /
+    options:
+      ratelimit:
+        rateLimits:
+          - actions:
+              - genericKey:
+                  descriptorValue: "slowpath"
     routeAction:
       single:
         upstream:
