@@ -4,7 +4,7 @@ descriptors:
   - key: generic_key
     value: slowpath
     rate_limit:
-      requests_per_unit: 5
+      requests_per_unit: 2
       unit: minute
   - key: ratelimitkey
     descriptors:
