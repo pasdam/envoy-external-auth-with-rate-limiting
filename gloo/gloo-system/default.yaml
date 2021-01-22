@@ -19,3 +19,14 @@ extauth:
     name: extauth
     namespace: gloo-system
   requestTimeout: 0.5s
+ratelimitServer:
+  ratelimitServerRef:
+    name: ratelimit
+    namespace: gloo-system
+ratelimit:
+  descriptors:
+    - key: generic_key
+      value: slowpath
+      rate_limit:
+        requests_per_unit: 2
+        unit: MINUTE

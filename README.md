@@ -3,6 +3,10 @@
 This repo contains a playground to test external authentication and rate
 limiting flow in [Envoy proxy](https://envoyproxy.io/).
 
+There are 2 different versions of the playground one that uses directly
+[Envoy](https://envoyproxy.io/) as ingress and another one that uses
+[Gloo Edge](https://www.solo.io/products/gloo-edge/).
+
 ## Components
 
 The playground components are:
@@ -16,7 +20,9 @@ The playground components are:
   cache the status; for this example we use the implementation provided by envoy
   itself;
 * [Envoy](https://envoyproxy.io/): it works as ingress and verify the request
-  using the external authentication service and rate limiter.
+  using the external authentication service and rate limiter;
+* [Gloo Edge](https://www.solo.io/products/gloo-edge/): it works as API gateway,
+  it's basically a wrapper around Envoy.
 
 ## Flow
 
@@ -36,10 +42,16 @@ The call flow is:
 
 ### Build and run
 
-To build and run the playground just run the following:
+To build and run the playground with Envoy just run the following:
 
 ```sh
 docker-compose up
+```
+
+To build and run the the one with Gloo:
+
+```sh
+docker-compose -f docker-compose-gloo.yaml up
 ```
 
 ### Test authentication
@@ -83,7 +95,7 @@ To test the rate limiting we can use the `/slowpath` endpoint which has a policy
 of 5 requests per minute, after that it will reply with:
 
 ```sh
-$ curl -v -H "Authorization: Bearer user-1-token" http://localhost:8010/slowpath
+$ curl -v -H "Authorization: Bearer user-1-token" http://localhost:8080/slowpath
 *   Trying ::1...
 * TCP_NODELAY set
 * Connected to localhost (::1) port 8010 (#0)

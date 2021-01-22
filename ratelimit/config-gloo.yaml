@@ -1,5 +1,5 @@
----
-domain: backend
+# Gloo has the domain hardcoded to `custom`
+domain: custom
 descriptors:
   - key: generic_key
     value: slowpath

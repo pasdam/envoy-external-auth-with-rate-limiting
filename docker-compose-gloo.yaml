@@ -44,3 +44,21 @@ services:
   extauth:
     build:
       context: extauth
+
+  ratelimit:
+    command: /bin/ratelimit
+    image: envoyproxy/ratelimit:master
+    depends_on:
+      - redis
+    volumes:
+      - ./ratelimit/config-gloo.yaml:/data/ratelimit/config/config.yaml
+    environment:
+      - LOG_LEVEL=debug
+      - REDIS_SOCKET_TYPE=tcp
+      - REDIS_URL=redis:6379
+      - RUNTIME_ROOT=/data
+      - RUNTIME_SUBDIRECTORY=ratelimit
+      - USE_STATSD=false
+
+  redis:
+    image: redis:6.0.10-alpine3.12
