@@ -1,0 +1,54 @@
+listeners:
+- bindAddress: '::'
+  bindPort: 8080
+  httpListener:
+    virtualHosts:
+    - domains:
+      - '*'
+      metadata:
+        sources:
+        - kind: '*v1.VirtualService'
+          name: default
+          namespace: gloo-system
+          observedGeneration: 0
+      name: gloo-system.default
+      options:
+        extauth:
+          customAuth: {}
+      routes:
+      - matchers:
+        - prefix: /
+        metadata:
+          sources:
+          - kind: '*v1.VirtualService'
+            name: default
+            namespace: gloo-system
+            observedGeneration: 0
+        options:
+          ratelimit:
+            rateLimits:
+            - actions:
+              - genericKey:
+                  descriptorValue: slowpath
+        routeAction:
+          single:
+            upstream:
+              name: backend
+              namespace: gloo-system
+  metadata:
+    sources:
+    - kind: '*v1.Gateway'
+      name: gateway-proxy
+      namespace: gloo-system
+      observedGeneration: 0
+  name: listener-::-8080
+  useProxyProto: false
+metadata:
+  labels:
+    created_by: gateway
+  name: gateway-proxy
+  namespace: gloo-system
+  resourceVersion: "53"
+status:
+  reportedBy: gloo
+  state: Accepted
