@@ -50,6 +50,8 @@ services:
     image: envoyproxy/ratelimit:master
     depends_on:
       - redis
+    ports:
+      - 8081:8080
     volumes:
       - ./ratelimit/config-gloo.yaml:/data/ratelimit/config/config.yaml
     environment:
