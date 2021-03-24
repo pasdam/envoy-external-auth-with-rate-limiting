@@ -63,4 +63,4 @@ services:
       - USE_STATSD=false
 
   redis:
-    image: redis:6.0.10-alpine3.12
+    image: redis:6.2.1-alpine3.13
