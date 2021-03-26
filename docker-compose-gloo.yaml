@@ -35,10 +35,6 @@ services:
       - "10010:10010" # port exposed by `settings.devMode=true`
     restart: always
 
-  extauth:
-    build:
-      context: extauth
-
   ratelimit:
     image: envoyproxy/ratelimit:c03723f3
     command:

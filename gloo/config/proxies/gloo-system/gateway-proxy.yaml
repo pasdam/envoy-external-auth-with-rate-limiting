@@ -12,9 +12,6 @@ listeners:
           namespace: gloo-system
           observedGeneration: 0
       name: gloo-system.default
-      options:
-        extauth:
-          customAuth: {}
       routes:
       - matchers:
         - prefix: /

@@ -17,18 +17,26 @@ static_resources:
               socket_address:
                 address: gloo
                 port_value: 9977
-    http2_protocol_options: {}
+    typed_extension_protocol_options:
+      envoy.extensions.upstreams.http.v3.HttpProtocolOptions:
+        "@type": type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions
+        explicit_http_config:
+          http2_protocol_options: {}
     type: STRICT_DNS
 dynamic_resources:
   ads_config:
     transport_api_version: V3
     api_type: GRPC
+    transport_api_version: V3
     grpc_services:
-    - envoy_grpc: {cluster_name: xds_cluster}
+    - envoy_grpc:
+        cluster_name: xds_cluster
   cds_config:
+    resource_api_version: V3
     ads: {}
     resource_api_version: V3
   lds_config:
+    resource_api_version: V3
     ads: {}
     resource_api_version: V3
 admin:
