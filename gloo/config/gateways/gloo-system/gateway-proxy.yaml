@@ -4,7 +4,7 @@ httpGateway: {}
 metadata:
   name: gateway-proxy
   namespace: gloo-system
-  resourceVersion: "3"
+  resourceVersion: "5"
 proxyNames:
 - gateway-proxy
 status:

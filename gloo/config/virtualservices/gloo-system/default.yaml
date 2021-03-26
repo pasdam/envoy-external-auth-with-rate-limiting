@@ -1,7 +1,7 @@
 metadata:
   name: default
   namespace: gloo-system
-  resourceVersion: "4"
+  resourceVersion: "6"
 status:
   reportedBy: gateway
   state: Accepted
@@ -12,18 +12,15 @@ status:
 virtualHost:
   domains:
   - '*'
-  options:
-    extauth:
-      customAuth: {}
   routes:
   - matchers:
     - prefix: /
     options:
       ratelimit:
         rateLimits:
-          - actions:
-              - genericKey:
-                  descriptorValue: "slowpath"
+        - actions:
+          - genericKey:
+              descriptorValue: slowpath
     routeAction:
       single:
         upstream:

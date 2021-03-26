@@ -14,11 +14,6 @@ directorySecretSource:
 refreshRate: 60s
 watchNamespaces:
 - gloo-system
-extauth:
-  extauthzServerRef:
-    name: extauth
-    namespace: gloo-system
-  requestTimeout: 0.5s
 ratelimitServer:
   ratelimitServerRef:
     name: ratelimit
@@ -27,6 +22,6 @@ ratelimit:
   descriptors:
     - key: generic_key
       value: slowpath
-      rate_limit:
-        requests_per_unit: 2
+      rateLimit:
+        requestsPerUnit: 2
         unit: MINUTE
