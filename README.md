@@ -45,13 +45,13 @@ The call flow is:
 To build and run the playground with Envoy just run the following:
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
 To build and run the the one with Gloo:
 
 ```sh
-docker-compose -f docker-compose-gloo.yaml up
+docker compose -f docker-compose-gloo.yaml up
 ```
 
 ### Test authentication
@@ -59,12 +59,12 @@ docker-compose -f docker-compose-gloo.yaml up
 To call the backend a bearer token must be passed in, e.g.
 
 ```sh
-$ curl -v -H "Authorization: Bearer user-1-token" http://localhost:8010
+$ curl -v -H "Authorization: Bearer user-1-token" http://localhost:8080
 *   Trying ::1...
 * TCP_NODELAY set
-* Connected to localhost (::1) port 8010 (#0)
+* Connected to localhost (::1) port 8080 (#0)
 > GET /slowpath HTTP/1.1
-> Host: localhost:8010
+> Host: localhost:8080
 > User-Agent: curl/7.64.1
 > Accept: */*
 > Authorization: Bearer user-1-token
@@ -92,7 +92,7 @@ If the token is invalid the response is a `401`.
 ### Test rate limiting
 
 To test the rate limiting we can use the `/slowpath` endpoint which has a policy
-of 5 requests per minute, after that it will reply with:
+of 2 requests per minute, after that it will reply with:
 
 ```sh
 $ curl -v -H "Authorization: Bearer user-1-token" http://localhost:8080/slowpath
