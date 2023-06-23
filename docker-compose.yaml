@@ -7,8 +7,15 @@ services:
       context: backend
 
   envoy:
-    command: /usr/local/bin/envoy -c /etc/envoy.yaml --service-cluster proxy --bootstrap-version 2
     image: envoyproxy/envoy-alpine:v1.17.0
+    command:
+      - /usr/local/bin/envoy
+      - -c
+      - /etc/envoy.yaml
+      - --service-cluster
+      - proxy-
+      - --bootstrap-version
+      - "2"
     volumes:
       - ./envoy/envoy.yaml:/etc/envoy.yaml:ro
     ports:
@@ -22,8 +29,9 @@ services:
     image: redis:6.2.1-alpine3.13
 
   ratelimit:
-    command: /bin/ratelimit
-    image: envoyproxy/ratelimit:master
+    image: envoyproxy/ratelimit:c03723f3
+    command:
+      - /bin/ratelimit
     depends_on:
       - redis
     ports:

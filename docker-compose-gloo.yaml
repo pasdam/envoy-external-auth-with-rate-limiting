@@ -38,14 +38,15 @@ services:
       context: extauth
 
   ratelimit:
-    command: /bin/ratelimit
-    image: envoyproxy/ratelimit:master
+    image: envoyproxy/ratelimit:c03723f3
+    command:
+      - /bin/ratelimit
     depends_on:
       - redis
     ports:
       - 8081:8080
     volumes:
-      - ./ratelimit/config-gloo.yaml:/data/ratelimit/config/config.yaml
+      - ./ratelimit/config-gloo.yaml:/data/ratelimit/config/config.yaml:ro
     environment:
       - LOG_LEVEL=debug
       - REDIS_SOCKET_TYPE=tcp
