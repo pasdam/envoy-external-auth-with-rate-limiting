@@ -1,12 +1,14 @@
 metadata:
   name: ratelimit
   namespace: gloo-system
-  resourceVersion: "4"
-useHttp2: true
+  resourceVersion: "6"
+namespacedStatuses:
+  statuses:
+    gloo-system:
+      reportedBy: gloo
+      state: Accepted
 static:
   hosts:
   - addr: ratelimit
     port: 8081
-status:
-  reportedBy: gloo
-  state: Accepted
+useHttp2: true

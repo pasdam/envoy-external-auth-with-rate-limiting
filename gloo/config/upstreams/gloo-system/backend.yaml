@@ -2,10 +2,12 @@ metadata:
   name: backend
   namespace: gloo-system
   resourceVersion: "4"
+namespacedStatuses:
+  statuses:
+    gloo-system:
+      reportedBy: gloo
+      state: Accepted
 static:
   hosts:
   - addr: backend
     port: 8123
-status:
-  reportedBy: gloo
-  state: Accepted

@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
+	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v3"
 	"google.golang.org/grpc"
 )
 

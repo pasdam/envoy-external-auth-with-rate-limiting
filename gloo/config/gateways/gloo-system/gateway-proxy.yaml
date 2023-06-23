@@ -4,14 +4,16 @@ httpGateway: {}
 metadata:
   name: gateway-proxy
   namespace: gloo-system
-  resourceVersion: "3"
-proxyNames:
-- gateway-proxy
-status:
-  reportedBy: gateway
-  state: Accepted
-  subresourceStatuses:
-    '*v1.Proxy.gloo-system.gateway-proxy':
+  resourceVersion: "27"
+namespacedStatuses:
+  statuses:
+    gloo-system:
       reportedBy: gloo
       state: Accepted
+      subresourceStatuses:
+        '*v1.Proxy.gateway-proxy_gloo-system':
+          reportedBy: gloo
+          state: Accepted
+proxyNames:
+- gateway-proxy
 useProxyProto: false

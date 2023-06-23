@@ -6,39 +6,31 @@ services:
     build:
       context: backend
 
-  gateway:
-    image: "${GLOO_REPO:-quay.io/solo-io}/gateway:${GLOO_VERSION:-1.5.12}"
-    working_dir: /
-    command:
-    - "--dir=/data/"
-    volumes:
-    - ./gloo:/data/
-    restart: always
-
   gateway-proxy:
-    image: ${GLOO_REPO:-quay.io/solo-io}/gloo-envoy-wrapper:${GLOO_VERSION:-1.5.12}
+    image: ${GLOO_REPO:-quay.io/solo-io}/gloo-envoy-wrapper:${GLOO_VERSION:-1.14.2}
     entrypoint: ["envoy"]
     command: [
       "-c", "/config/envoy.yaml",
       "--disable-hot-restart",
     ]
     volumes:
-    - ./gloo/envoy.yaml:/config/envoy.yaml:ro
+      - ./gloo/envoy.yaml:/config/envoy.yaml:ro
     ports:
-    - "8080:8080"
-    - "8443:8443"
-    - "19000:19000"
+      - "8080:8080"
+      - "8443:8443"
+      - "19000:19000"
     restart: always
 
   gloo:
-    image: "${GLOO_REPO:-quay.io/solo-io}/gloo:${GLOO_VERSION:-1.5.12}"
+    image: "${GLOO_REPO:-quay.io/solo-io}/gloo:${GLOO_VERSION:-1.14.2}"
     working_dir: /
     command:
-    - "--dir=/data/"
+      - "--dir=/data/"
     volumes:
-    - ./gloo:/data/
+      - ./gloo:/data/
     ports:
-    - "9977:9977"
+      - "9977:9977"
+      - "10010:10010" # port exposed by `settings.devMode=true`
     restart: always
 
   extauth:

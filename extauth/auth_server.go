@@ -4,10 +4,11 @@ import (
 	"context"
 	"log"
 
-	"github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
-	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
-	envoy_type "github.com/envoyproxy/go-control-plane/envoy/type"
-	"github.com/gogo/googleapis/google/rpc"
+	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
+	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v3"
+	envoy_type "github.com/envoyproxy/go-control-plane/envoy/type/v3"
+	"google.golang.org/genproto/googleapis/rpc/code"
+	"google.golang.org/genproto/googleapis/rpc/status"
 )
 
 type authorizationServer struct{}
@@ -26,8 +27,8 @@ func (a *authorizationServer) Check(ctx context.Context, req *auth.CheckRequest)
 		userID = "user-2"
 	default:
 		return &auth.CheckResponse{
-			Status: &rpc.Status{
-				Code: int32(rpc.UNAUTHENTICATED),
+			Status: &status.Status{
+				Code: int32(code.Code_UNAUTHENTICATED),
 			},
 			HttpResponse: &auth.CheckResponse_DeniedResponse{
 				DeniedResponse: &auth.DeniedHttpResponse{
@@ -41,8 +42,8 @@ func (a *authorizationServer) Check(ctx context.Context, req *auth.CheckRequest)
 	}
 
 	return &auth.CheckResponse{
-		Status: &rpc.Status{
-			Code: int32(rpc.OK),
+		Status: &status.Status{
+			Code: int32(code.Code_OK),
 		},
 		HttpResponse: &auth.CheckResponse_OkResponse{
 			OkResponse: &auth.OkHttpResponse{

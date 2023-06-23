@@ -49,6 +49,3 @@ metadata:
   name: gateway-proxy
   namespace: gloo-system
   resourceVersion: "53"
-status:
-  reportedBy: gloo
-  state: Accepted

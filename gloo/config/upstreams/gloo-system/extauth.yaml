@@ -2,11 +2,13 @@ metadata:
   name: extauth
   namespace: gloo-system
   resourceVersion: "4"
-useHttp2: true
+namespacedStatuses:
+  statuses:
+    gloo-system:
+      reportedBy: gloo
+      state: Accepted
 static:
   hosts:
   - addr: extauth
     port: 4000
-status:
-  reportedBy: gloo
-  state: Accepted
+useHttp2: true

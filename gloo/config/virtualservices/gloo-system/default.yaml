@@ -1,14 +1,16 @@
 metadata:
   name: default
   namespace: gloo-system
-  resourceVersion: "4"
-status:
-  reportedBy: gateway
-  state: Accepted
-  subresourceStatuses:
-    '*v1.Proxy.gloo-system.gateway-proxy':
+  resourceVersion: "25"
+namespacedStatuses:
+  statuses:
+    gloo-system:
       reportedBy: gloo
       state: Accepted
+      subresourceStatuses:
+        '*v1.Proxy.gateway-proxy_gloo-system':
+          reportedBy: gloo
+          state: Accepted
 virtualHost:
   domains:
   - '*'
@@ -21,9 +23,9 @@ virtualHost:
     options:
       ratelimit:
         rateLimits:
-          - actions:
-              - genericKey:
-                  descriptorValue: "slowpath"
+        - actions:
+          - genericKey:
+              descriptorValue: slowpath
     routeAction:
       single:
         upstream:
