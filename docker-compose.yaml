@@ -19,6 +19,7 @@ services:
     volumes:
       - ./envoy/envoy.yaml:/etc/envoy.yaml:ro
     ports:
+      - "8001:8001"
       - "8080:8080"
 
   extauth:
