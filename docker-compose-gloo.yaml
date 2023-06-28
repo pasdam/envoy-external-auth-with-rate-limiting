@@ -9,10 +9,12 @@ services:
   gateway-proxy:
     image: ${GLOO_REPO:-quay.io/solo-io}/gloo-envoy-wrapper:${GLOO_VERSION:-1.14.2}
     entrypoint: ["envoy"]
-    command: [
-      "-c", "/config/envoy.yaml",
-      "--disable-hot-restart",
-    ]
+    command:
+      - -c
+      - /config/envoy.yaml
+      - --disable-hot-restart
+      - --component-log-level
+      - config:debug,connection:debug,ext_authz:debug,rate_limit_quota:debug,upstream:debug
     volumes:
       - ./gloo/envoy.yaml:/config/envoy.yaml:ro
     ports:
